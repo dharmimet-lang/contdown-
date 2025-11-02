@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Countdown</title>
+        <style>
+            .countdown-container{
+                margin-top:200px;
+                margin-left:200px;
+                margin-right:200px;
+                width:1200px;
+                height:675px;
+                text-align: center;
+            }
+            .countdown-header{
+                margin-left: -50px;
+            }
+            .countdown-keys{
+                width: 250px;
+                height:90px;
+                float:left;
+                margin-left: 30px;
+                background: linear-gradient(180deg,#fff 0%,#f0a6c8 100%);
+                border-radius: 10px;
+            }
+            .count-num{
+                font-size:x-large;
+                color:rgb(238, 50, 78);
+                text-align: center;
+                font-size: xx-large
+            }
+            body{
+                background:linear-gradient(135deg,#5fe635 ,#07cfe9 );
+                animation: gradientMove 10s ease infinite; 
+                background-size: 300% 300% ;
+            }
+            @keyframes gradientMove{
+                0% {background-position:0% 50%; }
+                50% {background-position: 100% 50%; }
+                100% {background-position: 0% 50%; }
+            }
+
+            .click{
+                margin-top: 50px;
+                margin-bottom: -100px;
+                height:100px;
+                width:300px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <center><h1>COUNTDOWN TILL YOUR BIG DAY</h1></center>
+        </div>
+        <div>
+            <video options="" preload="" >
+                <source src="IMG_3954.MOV" type="video/MOV">
+            </video>
+        </div>
+        <center><button id="countdown" class="click">Clock is still ticking</button></center>
+        <center>
+            <div class="countdown-container">
+                    <div class="countdown-header">
+                    </div>
+                    <div >
+                        <div class="countdown-keys">
+                            <span id="days" class="count-num" ><b>00</b></span>
+                            <br/>
+                            days
+                        </div>
+                        <div class="countdown-keys">
+                            <span id="hours" class="count-num"><b>00</b></span>
+                            <br/>
+                            hours
+                        </div>
+                        <div class="countdown-keys">
+                            <span id="minutes" class="count-num"><b>00</b></span>
+                            <br/>
+                            minutes
+                        </div>
+                        <div class="countdown-keys">
+                            <span id="seconds" class="count-num"><b>00</b></span>
+                            <br/>
+                            seconds
+                        </div>
+                    </div>
+            </div>
+        </center>
+        <script>
+            // Set the target date and the redirection URL
+            const targetDate = new Date("nov 03, 2025 00:00:00").getTime();
+            const redirectURL = "file:///C:/Users/kiran/Videos/web%20development/tanu.html";
+
+            const countdown = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                // Time calculations
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the countdown, ensuring two digits (e.g., "09" instead of "9")
+                document.getElementById("days").innerText = String(days).padStart(2, '0');
+                document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+                document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+                document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+
+                // *** CHANGE 2: Logic for automatic redirection upon completion. ***
+                if (distance < 0) {
+                    // Stop the countdown timer
+                    clearInterval(countdown);
+                    
+                    // Update the button text to show what's happening
+                    document.getElementById("countdown").innerText = '🎉 Time’s Up! Redirecting...';
+                    
+                    // Automatically redirect the page to the new URL
+                    window.location.href = redirectURL;
+                }
+            }, 1000); // Update every 1 second
+        </script>
+    </body>
+</html>
